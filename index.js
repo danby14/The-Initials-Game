@@ -9,7 +9,7 @@ import Other from './people/other.js';
 
 const topics = [Actors, Music, MiscSports, Nba, Mlb, Nfl, Nhl, Other];
 let taken = [];
-let topic;
+let topicsIndex;
 let correctCounter = 0;
 
 const categories = document.querySelectorAll('.profession-selector li');
@@ -21,6 +21,10 @@ const lastGuess = document.querySelector('.last-wrong-guess');
 const button = document.querySelector('button');
 const answer = document.querySelector('.answer');
 const totalCorrect = document.querySelector('.correct .number');
+const hint1 = document.querySelector('.hint');
+const hint2 = document.querySelectorAll('.hint')[1];
+const hint3 = document.querySelectorAll('.hint')[2];
+const skip = document.querySelectorAll('.hint')[3];
 
 function getRandom(min, max) {
   min = Math.ceil(min);
@@ -30,40 +34,38 @@ function getRandom(min, max) {
 
 let selected;
 let solution;
-// turn correct guesses into an array
-// const uls = document.querySelectorAll('.correct-guesses ul')[0].innerText;
-// uls.split('\n')
+
 function getNewInitials() {
-  selected = selectedCategory.textContent;
-  if (taken.length === topics[topic].length) {
+  let topic = topics[topicsIndex];
+  34;
+  let random = getRandom(0, topic.length - 1);
+  if (topic.length < 1) {
     return (solution = undefined);
   }
-  solution = topics[topic][getRandom(0, 7)];
-  if (taken.includes(solution)) {
+  solution = topic[random];
+  if (taken.includes(solution.name)) {
+    topic.splice(random, 1);
     return getNewInitials();
   }
-  // solution = NBA[getRandom(0, 7)];
-  return solution
-    .split(' ')
-    .map(n => n[0])
-    .join('.');
+  return solution.initials;
 }
-
-// initials.textContent = getNewInitials() + '.';
 
 categories.forEach((x, i) =>
   x.addEventListener('click', () => {
-    correctCounter = 0;
-    totalCorrect.textContent = correctCounter;
+    // to reset correct counter on category change
+    // correctCounter = 0;
+    // totalCorrect.textContent = correctCounter;
 
-    alreadyGot.textContent = '';
-    taken = [];
+    // alreadyGot.textContent = '';
+    // taken = [];
     selectedCategory.textContent = x.textContent;
     selected = x.textContent;
-    topic = i;
-    initials.textContent = getNewInitials() + '.';
-    console.log(topic);
-    console.log(selected);
+    topicsIndex = i;
+    resetHints();
+    initials.textContent = getNewInitials();
+    if (initials.textContent === '') {
+      initials.textContent = 'Got Them All';
+    }
   })
 );
 
@@ -74,22 +76,23 @@ guess.onkeydown = e => {
 };
 
 button.addEventListener('click', () => {
-  if (guess.value.length < 1 || solution === undefined) return;
-  if (guess.value.toLowerCase() === solution.toLowerCase()) {
+  if (guess.value.length < 1 || solution.name === undefined) return;
+  if (guess.value.toLowerCase() === solution.name.toLowerCase()) {
     console.log('correct');
     correctCounter += 1;
     totalCorrect.textContent = correctCounter;
 
     let li = document.createElement('li');
-    li.appendChild(document.createTextNode(solution));
+    li.appendChild(document.createTextNode(solution.name));
     alreadyGot.appendChild(li);
-    taken.push(solution);
+
+    taken.push(solution.name);
 
     getNewInitials();
     if (solution === undefined) {
       initials.textContent = 'Got Them All';
     } else {
-      initials.textContent = getNewInitials() + '.';
+      initials.textContent = getNewInitials();
     }
 
     lastGuess.textContent = '';
@@ -97,6 +100,18 @@ button.addEventListener('click', () => {
     console.log('wrong');
     lastGuess.textContent = guess.value;
   }
-  // selectedCategory.textContent = guess.value;
+  resetHints();
   guess.value = '';
+});
+
+function resetHints() {
+  hint1.textContent = 'hint 1';
+  hint2.textContent = 'hint 2';
+}
+
+hint1.addEventListener('click', () => {
+  hint1.textContent = solution.hint1;
+});
+hint2.addEventListener('click', () => {
+  hint2.textContent = solution.hint2;
 });
