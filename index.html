@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;400;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="index.js" defer></script>
+    <title>The I.G.</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="score-container">
+        <div class="left-side"></div>
+        <div class="score">
+          <div class="skipped">
+            <div class="word">Skipped</div>
+            <div class="number">0</div>
+          </div>
+          <div class="timer">
+            <div class="word">Seconds</div>
+            <div class="number">60</div>
+          </div>
+          <div class="correct">
+            <div class="word">Correct</div>
+            <div class="number">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="game-container">
+        <div class="left-side">
+          <div class="profession-selector">
+            <ul>
+              <li>Actor/Actress</li>
+              <li>Music</li>
+              <li>Misc. Sports</li>
+              <li>NBA</li>
+              <li>MLB</li>
+              <li>NFL</li>
+              <li>NHL</li>
+              <li>Other</li>
+            </ul>
+          </div>
+        </div>
+        <div class="game-board">
+          <div class="upper">
+            <div class="col-1">
+              <div class="category">
+                Category: <span id="chosen-category">Please Select One</span>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="answer">Chuck Bartowski</div>
+              <div class="initials">_ _</div>
+              <div class="guesses">
+                <div class="last-wrong-guess"></div>
+                <div class="guess"><input type="text" /></div>
+                <button>Enter</button>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="correct-guesses">
+                <h3>Got Right</h3>
+                <ul></ul>
+              </div>
+            </div>
+          </div>
+          <div class="lower">
+            <div class="hints">
+              <div class="hint">first name</div>
+              <div class="hint">last name</div>
+              <div class="hint">second letters</div>
+              <div class="hint">skip</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
