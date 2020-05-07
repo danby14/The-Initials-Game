@@ -14,12 +14,10 @@ let correctCounter = 0;
 
 const categories = document.querySelectorAll('.profession-selector li');
 const alreadyGot = document.querySelector('.correct-guesses ul');
-const selectedCategory = document.getElementById('chosen-category');
 const initials = document.querySelector('.initials');
 const guess = document.querySelector('input');
 const lastGuess = document.querySelector('.last-wrong-guess');
 const button = document.querySelector('button');
-const answer = document.querySelector('.answer');
 const totalCorrect = document.querySelector('.correct .number');
 const hint1 = document.querySelector('.hint');
 const hint2 = document.querySelectorAll('.hint')[1];
@@ -58,7 +56,11 @@ categories.forEach((x, i) =>
 
     // alreadyGot.textContent = '';
     // taken = [];
-    selectedCategory.textContent = x.textContent;
+    if (selected) {
+      let canada = document.querySelector('.active');
+      canada.classList.toggle('active');
+    }
+    x.classList.toggle('active');
     selected = x.textContent;
     topicsIndex = i;
     resetHints();
@@ -110,8 +112,8 @@ function resetHints() {
 }
 
 hint1.addEventListener('click', () => {
-  hint1.textContent = solution.hint1;
+  if (solution) hint1.textContent = solution.hint1;
 });
 hint2.addEventListener('click', () => {
-  hint2.textContent = solution.hint2;
+  if (solution) hint2.textContent = solution.hint2;
 });
