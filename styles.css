@@ -15,12 +15,16 @@ body {
   justify-content: center;
   height: 100vh;
   width: 100vw;
+  /* min-height: 1000px;
+  min-width: 1000px; */
   padding: 0 10%;
 }
 
 .score-container {
   display: flex;
   width: 100%;
+  min-width: 250px;
+  /* min-height: 400px; */
 }
 
 .score {
@@ -28,7 +32,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  min-height: 12vh;
+  /* min-height: 12vh; */
   color: hsl(53, 81%, 47%);
   font-size: 2.2rem;
   background: black;
@@ -67,6 +71,8 @@ body {
   text-align: center;
   height: 60vh;
   width: 100%;
+  min-height: 300px;
+  min-width: 250px;
   border-radius: 0 0 0.8rem 0.8rem;
   box-shadow: 3px 10px 20px rgb(53, 53, 53);
 }
@@ -108,7 +114,6 @@ body {
   color: black;
   border: black solid;
   border-radius: 0.7rem;
-  /* height: 7%; */
   cursor: pointer;
 }
 
@@ -131,7 +136,7 @@ body {
 
 .initials {
   height: 0.5%;
-  font-size: 4rem;
+  font-size: 4em;
 }
 
 .guesses {
@@ -143,11 +148,23 @@ body {
 }
 
 .guess input {
-  width: 20rem;
+  width: 75%;
   padding: 1rem 0;
   font-size: 1.5rem;
   font-weight: 500;
   text-align: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .guess input {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .guess input {
+    width: 38%;
+  }
 }
 
 .guesses button {
@@ -196,4 +213,103 @@ body {
   color: white;
   border-radius: 1rem 0;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    padding: 0 3%;
+  }
+
+  .game-board {
+    height: 80vh;
+  }
+
+  .upper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .score {
+    font-size: 1.8rem;
+  }
+
+  .word {
+    font-size: 1.2rem;
+  }
+
+  .initials {
+    height: 50%;
+  }
+
+  .col-1,
+  .col-2,
+  .col-3 {
+    width: 100%;
+  }
+
+  .col-1 {
+    height: 25%;
+  }
+
+  .col-2 {
+    height: 57%;
+  }
+
+  .col-3 {
+    height: 20%;
+  }
+
+  .profession-selector {
+    width: 100%;
+    height: 50%;
+  }
+  .profession-selector ul {
+    padding: 0;
+    min-width: 0;
+    height: inherit;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .profession-selector li {
+    margin: 1.5% 1% 0 1%;
+    padding: 0 3px;
+    border-radius: 0.4rem;
+  }
+
+  .initials {
+    margin-top: 4%;
+    padding: 0.6rem 0;
+    font-size: 3rem;
+  }
+
+  .guess input {
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+  }
+
+  .correct-guesses {
+    /* padding-top: 5%; */
+    max-height: 4rem;
+    overflow: scroll;
+    margin-top: 5%;
+  }
+
+  .lower {
+    height: 8%;
+    width: 100%;
+  }
+
+  .hint {
+    width: 100%;
+    border-radius: 0;
+    border-bottom: 1.2px solid black;
+  }
+  .hint:first-child {
+    border-radius: 0 0 0 0.8rem;
+  }
+  .hint:last-child {
+    border-radius: 0 0 0.8rem 0;
+  }
 }

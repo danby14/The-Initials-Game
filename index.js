@@ -86,7 +86,8 @@ button.addEventListener('click', () => {
 
     let li = document.createElement('li');
     li.appendChild(document.createTextNode(solution.name));
-    alreadyGot.appendChild(li);
+    alreadyGot.insertBefore(li, alreadyGot.childNodes[0]);
+    // alreadyGot.appendChild(li);
 
     taken.push(solution.name);
 
