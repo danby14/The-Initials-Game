@@ -48,14 +48,12 @@ body {
   font-size: 1.7rem;
 }
 
-.timer .number {
-  margin: 0 20px;
-}
-
 .pick-time {
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .pick-time button {
@@ -202,6 +200,15 @@ body {
   color: black;
   text-decoration: underline;
   padding-bottom: 0.2rem;
+}
+
+#outOf {
+  margin-left: 5px;
+  font-weight: 400;
+  color: green;
+  font-size: 1.1rem;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .lower {
