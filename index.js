@@ -34,8 +34,8 @@ let taken = [];
 let time;
 let timerId;
 let topic;
+let topicOgLength;
 const topics = [Actors, Music, MiscSports, Nba, Mlb, Nfl, Nhl, Other];
-let topicsIndex;
 
 countdown.textContent = initialTime;
 
@@ -65,9 +65,6 @@ function changeTime(a) {
   countdown.textContent = initialTime;
 }
 
-changeTimeButtons[0].addEventListener('click', () => changeTime('sub'));
-changeTimeButtons[1].addEventListener('click', () => changeTime('add'));
-
 function disableTimerChange(bool) {
   changeTimeButtons[0].disabled = bool;
   changeTimeButtons[1].disabled = bool;
@@ -93,6 +90,33 @@ function getNewInitials() {
   return solution.initials;
 }
 
+function getLengthsOfNames() {
+  if (solution) {
+    let names = solution.name.split(' ');
+    let combinedLengths = names.map(name => name.length);
+    hint3.textContent = combinedLengths.join('-');
+  }
+}
+
+function skipInitials() {
+  if (solution) {
+    if (topic.length < 2) return (skip.textContent = 'no more skips');
+    resetHints();
+    guess.value = '';
+    getNewInitials();
+    skipped += 1;
+    totalSkipped.textContent = skipped;
+    initials.textContent = getNewInitials();
+  }
+}
+
+function resetHints() {
+  hint1.textContent = 'hint 1';
+  hint2.textContent = 'hint 2';
+  hint3.textContent = 'lengths';
+  skip.textContent = 'skip';
+}
+
 function resetBoard() {
   correctCounter = 0;
   totalCorrect.textContent = correctCounter;
@@ -105,10 +129,8 @@ function resetBoard() {
   clearInterval(timerId);
 }
 
-let topicOgLength;
 function onCategorySelect(x, i) {
   resetBoard();
-
   if (selected) {
     let active = document.querySelector('.active');
     active.classList.toggle('active');
@@ -122,24 +144,14 @@ function onCategorySelect(x, i) {
   if (initials.textContent === '') {
     initials.textContent = 'Got Them All';
   }
-
   disableTimerChange(true);
   startTimer();
 }
 
-categories.forEach((x, i) => x.addEventListener('click', () => onCategorySelect(x, i)));
-
-guess.onkeydown = e => {
-  if (e.keyCode === 13) {
-    button.click();
-  }
-};
-
-button.addEventListener('click', () => {
+function checkGuess() {
   if (time < 0) return;
   if (guess.value.length < 1 || solution === undefined) return;
   if (guess.value.toLowerCase() === solution.name.toLowerCase()) {
-    console.log('correct');
     correctCounter += 1;
     totalCorrect.textContent = correctCounter;
 
@@ -159,33 +171,33 @@ button.addEventListener('click', () => {
     }
     resetHints();
   } else {
-    console.log('wrong');
     lastGuess.textContent = guess.value;
   }
   guess.value = '';
-});
-
-function resetHints() {
-  hint1.textContent = 'hint 1';
-  hint2.textContent = 'hint 2';
-  skip.textContent = 'skip';
 }
+
+changeTimeButtons[0].addEventListener('click', () => changeTime('sub'));
+
+changeTimeButtons[1].addEventListener('click', () => changeTime('add'));
+
+categories.forEach((x, i) => x.addEventListener('click', () => onCategorySelect(x, i)));
+
+button.addEventListener('click', checkGuess);
+
+guess.onkeydown = e => {
+  if (e.keyCode === 13) {
+    button.click();
+  }
+};
 
 hint1.addEventListener('click', () => {
   if (solution) hint1.textContent = solution.hint1;
 });
+
 hint2.addEventListener('click', () => {
   if (solution) hint2.textContent = solution.hint2;
 });
 
-skip.addEventListener('click', () => {
-  if (solution) {
-    if (topic.length < 2) return (skip.textContent = 'no more skips');
-    resetHints();
-    guess.value = '';
-    getNewInitials();
-    skipped += 1;
-    totalSkipped.textContent = skipped;
-    initials.textContent = getNewInitials();
-  }
-});
+hint3.addEventListener('click', getLengthsOfNames);
+
+skip.addEventListener('click', skipInitials);
